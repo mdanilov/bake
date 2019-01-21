@@ -22,6 +22,7 @@ module Bake
       begin
         begin
           Timeout::timeout(timeout) {
+          puts "A"
           while not rd.eof?
             tmp = rd.read(1)
             if (tmp != nil)
@@ -32,16 +33,20 @@ module Bake
               print tmp if immediateOutput
             end
           end
+          puts "B"
           }
         rescue Timeout::Error
+          puts "D"
           @@rd = rd
           @@pid = pid
           ProcessHelper::killProcess(true)
           output << "Process timeout (#{timeout} seconds).\n"
           return [false, output]
         end
+        puts "E"
 
-      rescue
+      rescue Exception => e
+        puts "F: #{e.message}"
         # Seems to be a bug in ruby: sometimes there is a bad file descriptor on Windows instead of eof, which causes
         # an exception on read(). However, this happens not before everything is read, so there is no practical difference
         # how to "break" the loop.
@@ -49,11 +54,16 @@ module Bake
       end
 
       begin
+        puts "G"
         rd.close
+        puts "H"
       rescue
+        puts "I"
       end
+      puts "J"
       pid, status = Process.wait2(pid)
-
+      puts "K"
+      
       @@pid = nil
       @@rd = nil
 

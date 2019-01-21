@@ -5,7 +5,7 @@ module Bake
     end
 
     def self.printBakeVersion(ry = "")
-      puts "-- bake#{ry} #{Bake::Version.number}, ruby #{RUBY_VERSION}p#{RUBY_PATCHLEVEL}, platform #{RUBY_PLATFORM} --"
+      puts "-- bake#{ry} #{Bake::Version.number}, ruby #{RUBY_VERSION}p#{RUBY_PATCHLEVEL}, platform #{RUBY_PLATFORM} -- EXPERIMENTAL FOR JENKINS"
     end
 
     def self.printBakeryVersion()

@@ -273,6 +273,7 @@ module Bake
 
       @filename = "." if @compileOnly
 
+        Bake::Version.printBakeVersion
     end
 
     def check_valid_dir(dir)
